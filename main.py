@@ -274,8 +274,6 @@ class Biersimulator (object):
 		# Lagern:
 		self.obj("entry13").set_text("%d" % self.rezept['lagern']['temperatur'])
 		self.obj("entry14").set_text("%d" % self.rezept['lagern']['dauer'])
-		# Abfüllen:
-		# adjustments (abfuellen)
 	def get_fields(self):
 		# Schroten & Maischen:
 		self.rezept['maischen']['hg'] = float(self.obj("entry2").get_text())/self.ausschlagmenge
@@ -301,8 +299,6 @@ class Biersimulator (object):
 		# Lagern:
 		self.rezept['lagern']['temperatur'] = int(self.obj("entry13").get_text())
 		self.rezept['lagern']['dauer'] = int(self.obj("entry14").get_text())
-		# Abfüllen:
-		# adjustments (abfuellen)
 	def fill_model_schuettung(self):
 		self.model_schuettung.clear()
 		for item in self.rezept['maischen']['schuettung']:
