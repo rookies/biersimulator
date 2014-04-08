@@ -18,16 +18,6 @@
     <property name="step_increment">1</property>
     <property name="page_increment">10</property>
   </object>
-  <object class="GtkTextBuffer" id="textbuffer1">
-    <property name="text" translatable="yes">Die Sudhausausbeute gibt an, wie viel und wie starkes Bier
-man mit einer bestimmten Menge Malz brauen kann.
-Je höher die Biermenge und je höher die Stammwürze bei
-gleicher Malzmenge also ist, desto höher ist auch die Sudhausausbeute.
-Sie hängt von vielen Faktoren ab und ist bei jeder Brauanlage
-unterschiedlich, daher kann sie genau nur experimentell bestimmt werden.
-Moderne, kommerzielle Brauereien erreichen einen Wert von über 75%,
-für Hobbybrauer kann man von einem Wert von 65 bis 75% ausgehen.</property>
-  </object>
   <object class="GtkMessageDialog" id="messagedialog1">
     <property name="can_focus">False</property>
     <property name="border_width">5</property>
@@ -124,6 +114,36 @@ für Hobbybrauer kann man von einem Wert von 65 bis 75% ausgehen.</property>
     <action-widgets>
       <action-widget response="0">button10</action-widget>
     </action-widgets>
+  </object>
+  <object class="GtkTextBuffer" id="textbuffer3">
+    <property name="text" translatable="yes">Der Stammwürzegehalt gibt an, wie viel Zucker im Bier vor der Gärung enthalten war. Danach lassen sich Biere in die vier Gattungen
+Einfachbier, Schankbier, Vollbier und Starkbier einordnen.
+
+Der Restextraktgehalt gibt an, wie viel Zucker im Bier nach der Gärung noch enthalten ist. Er bestimmt, wie vollmundig das Bier schmeckt.
+
+Anhand der Farbe wird Bier in die Kategorien hell, gold, bernstein, kupfer, braun oder schwarz eingeteilt. Auf dem Bild ist zu sehen,
+wie dunkel das Bier in etwa sein wird.
+
+Die Bitterkeit kann einmal objektiv in IBU (International Bittering Unit, 1 IBU = 1 mg Bitterstoffe pro Liter Bier) und einmal subjektiv
+ausgedrückt werden. Der subjektive Eindruck ist hierbei vom Verhältnis zwischen Bitterstoffgehalt und Stammwürzegehalt abhängig
+und lässt sich in die Kategorien sehr mild, mild, ausgewogen, moderat herb und sehr herb unterteilen.
+
+Der Alkoholgehalt gibt, unschwer zu erraten, den Anteil von Alkohol im Bier in Volumen-Prozent an.
+
+Der CO2-Gehalt gibt an, wie viel Kohlensäure im Bier enthalten ist und entscheidet demnach auch, wie erfrischend ein Bier schmeckt.
+Weizenbiere haben einen besonders hohen Gehalt von bis zu 9,0 g/l, Lager-Biere bewegen sich in etwa zwischen 4,0 und 5,5 g/l.
+
+Die Aromen sind vor allem vom Aromahopfen abhängig, wurde nur Bitterhopfen ausgewählt, werden sie hier nicht angezeigt.</property>
+  </object>
+  <object class="GtkTextBuffer" id="textbuffer1">
+    <property name="text" translatable="yes">Die Sudhausausbeute gibt an, wie viel und wie starkes Bier
+man mit einer bestimmten Menge Malz brauen kann.
+Je höher die Biermenge und je höher die Stammwürze bei
+gleicher Malzmenge also ist, desto höher ist auch die Sudhausausbeute.
+Sie hängt von vielen Faktoren ab und ist bei jeder Brauanlage
+unterschiedlich, daher kann sie genau nur experimentell bestimmt werden.
+Moderne, kommerzielle Brauereien erreichen einen Wert von über 75%,
+für Hobbybrauer kann man von einem Wert von 65 bis 75% ausgehen.</property>
   </object>
   <object class="GtkTextBuffer" id="textbuffer2"/>
   <object class="GtkWindow" id="window1">
@@ -2171,6 +2191,7 @@ für Hobbybrauer kann man von einem Wert von 65 bis 75% ausgehen.</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="editable">False</property>
+                        <property name="buffer">textbuffer3</property>
                       </object>
                     </child>
                   </object>
