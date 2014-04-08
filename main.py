@@ -473,7 +473,17 @@ class Biersimulator (object):
 		self.set_fields()
 	# Button Start eigenes Rezept
 	def on_button4_clicked(self, widget, *args):
+		# Stammwürze einlesen:
+		try:
+			sw = float(self.obj("entry8").get_text())
+		except ValueError:
+			self.show_msg("Ungültige Eingabe!", "Der Wert für den Stammwürzegehalt darf nur Zahlen enthalten.", gtk.MESSAGE_WARNING)
+			return
+		if sw < 0:
+			self.show_msg("Ungültige Eingabe!", "Der Wert für den Stammwürzegehalt muss positiv sein.", gtk.MESSAGE_WARNING)
+			return
 		self.rezept = {
+			'stammwuerze': sw,
 			'typ': '',
 			'name': '',
 			'maischen': {
