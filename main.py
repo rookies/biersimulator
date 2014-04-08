@@ -191,9 +191,10 @@ class Biersimulator (object):
 		for item in self.hefe_og:
 			self.obj("combobox2").append_text('%s (OG)' % (item[0]))
 		self.obj("combobox2").set_active(0)
+		# image2 anzeigen:
+		self.set_image2(0)
 		# window1 anzeigen:
 		self.obj("window1").show()
-	
 	def __del__ (self):
 		pass
 	def run (self):
@@ -306,6 +307,17 @@ class Biersimulator (object):
 		# Lagern:
 		self.rezept['lagern']['temperatur'] = int(self.obj("entry13").get_text())
 		self.rezept['lagern']['dauer'] = int(self.obj("entry14").get_text())
+	def set_image2(self, nr):
+		imgs = [
+			"img/schroten.png",
+			"img/maischen.png",
+			"",
+			"img/kochen.png",
+			"",
+			"img/gaeren.png",
+			""
+		]
+		self.obj("image2").set_from_file(imgs[nr])
 	def fill_model_schuettung(self):
 		self.model_schuettung.clear()
 		for item in self.rezept['maischen']['schuettung']:
@@ -416,6 +428,8 @@ class Biersimulator (object):
 	def on_window2_delete_event(self, *args):
 		self.restart()
 		return True
+	def on_notebook2_switch_page(self, widget, page, page_num, *args):
+		self.set_image2(page_num)
 	def on_treeview_selection2_changed(self, selection):
 		if selection.count_selected_rows() is 1:
 			self.obj("button5").set_sensitive(True)

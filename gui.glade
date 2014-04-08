@@ -424,6 +424,7 @@ für Hobbybrauer kann man von einem Wert von 65 bis 75% ausgehen.</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="tab_pos">left</property>
+                    <signal name="switch-page" handler="on_notebook2_switch_page" swapped="no"/>
                     <child>
                       <object class="GtkFrame" id="frame4">
                         <property name="visible">True</property>
@@ -585,7 +586,7 @@ für Hobbybrauer kann man von einem Wert von 65 bis 75% ausgehen.</property>
                             </child>
                           </object>
                           <packing>
-                            <property name="expand">True</property>
+                            <property name="expand">False</property>
                             <property name="fill">True</property>
                             <property name="position">0</property>
                           </packing>
@@ -647,7 +648,7 @@ für Hobbybrauer kann man von einem Wert von 65 bis 75% ausgehen.</property>
                             </child>
                           </object>
                           <packing>
-                            <property name="expand">True</property>
+                            <property name="expand">False</property>
                             <property name="fill">True</property>
                             <property name="position">1</property>
                           </packing>
@@ -804,7 +805,7 @@ für Hobbybrauer kann man von einem Wert von 65 bis 75% ausgehen.</property>
                             </child>
                           </object>
                           <packing>
-                            <property name="expand">True</property>
+                            <property name="expand">False</property>
                             <property name="fill">True</property>
                             <property name="position">3</property>
                           </packing>
@@ -886,7 +887,7 @@ für Hobbybrauer kann man von einem Wert von 65 bis 75% ausgehen.</property>
                             </child>
                           </object>
                           <packing>
-                            <property name="expand">True</property>
+                            <property name="expand">False</property>
                             <property name="fill">True</property>
                             <property name="position">0</property>
                           </packing>
@@ -948,7 +949,7 @@ für Hobbybrauer kann man von einem Wert von 65 bis 75% ausgehen.</property>
                             </child>
                           </object>
                           <packing>
-                            <property name="expand">True</property>
+                            <property name="expand">False</property>
                             <property name="fill">True</property>
                             <property name="position">1</property>
                           </packing>
@@ -1010,7 +1011,7 @@ für Hobbybrauer kann man von einem Wert von 65 bis 75% ausgehen.</property>
                             </child>
                           </object>
                           <packing>
-                            <property name="expand">True</property>
+                            <property name="expand">False</property>
                             <property name="fill">True</property>
                             <property name="position">2</property>
                           </packing>
@@ -1092,7 +1093,7 @@ für Hobbybrauer kann man von einem Wert von 65 bis 75% ausgehen.</property>
                             </child>
                           </object>
                           <packing>
-                            <property name="expand">True</property>
+                            <property name="expand">False</property>
                             <property name="fill">True</property>
                             <property name="position">0</property>
                           </packing>
@@ -1241,7 +1242,7 @@ für Hobbybrauer kann man von einem Wert von 65 bis 75% ausgehen.</property>
                             </child>
                           </object>
                           <packing>
-                            <property name="expand">True</property>
+                            <property name="expand">False</property>
                             <property name="fill">True</property>
                             <property name="position">0</property>
                           </packing>
@@ -1303,7 +1304,7 @@ für Hobbybrauer kann man von einem Wert von 65 bis 75% ausgehen.</property>
                             </child>
                           </object>
                           <packing>
-                            <property name="expand">True</property>
+                            <property name="expand">False</property>
                             <property name="fill">True</property>
                             <property name="position">1</property>
                           </packing>
@@ -1385,7 +1386,7 @@ für Hobbybrauer kann man von einem Wert von 65 bis 75% ausgehen.</property>
                             </child>
                           </object>
                           <packing>
-                            <property name="expand">True</property>
+                            <property name="expand">False</property>
                             <property name="fill">True</property>
                             <property name="position">0</property>
                           </packing>
@@ -1447,7 +1448,7 @@ für Hobbybrauer kann man von einem Wert von 65 bis 75% ausgehen.</property>
                             </child>
                           </object>
                           <packing>
-                            <property name="expand">True</property>
+                            <property name="expand">False</property>
                             <property name="fill">True</property>
                             <property name="position">1</property>
                           </packing>
@@ -1529,7 +1530,7 @@ für Hobbybrauer kann man von einem Wert von 65 bis 75% ausgehen.</property>
                             </child>
                           </object>
                           <packing>
-                            <property name="expand">True</property>
+                            <property name="expand">False</property>
                             <property name="fill">True</property>
                             <property name="position">0</property>
                           </packing>
@@ -1591,7 +1592,7 @@ für Hobbybrauer kann man von einem Wert von 65 bis 75% ausgehen.</property>
                             </child>
                           </object>
                           <packing>
-                            <property name="expand">True</property>
+                            <property name="expand">False</property>
                             <property name="fill">True</property>
                             <property name="position">1</property>
                           </packing>
@@ -1678,7 +1679,7 @@ für Hobbybrauer kann man von einem Wert von 65 bis 75% ausgehen.</property>
                 <signal name="clicked" handler="on_button13_clicked" swapped="no"/>
               </object>
               <packing>
-                <property name="expand">True</property>
+                <property name="expand">False</property>
                 <property name="fill">True</property>
                 <property name="position">2</property>
               </packing>
@@ -1775,7 +1776,7 @@ für Hobbybrauer kann man von einem Wert von 65 bis 75% ausgehen.</property>
                     </child>
                   </object>
                   <packing>
-                    <property name="expand">True</property>
+                    <property name="expand">False</property>
                     <property name="fill">True</property>
                     <property name="position">0</property>
                   </packing>
@@ -1821,7 +1822,7 @@ für Hobbybrauer kann man von einem Wert von 65 bis 75% ausgehen.</property>
                     </child>
                   </object>
                   <packing>
-                    <property name="expand">True</property>
+                    <property name="expand">False</property>
                     <property name="fill">True</property>
                     <property name="position">1</property>
                   </packing>
@@ -1880,7 +1881,7 @@ für Hobbybrauer kann man von einem Wert von 65 bis 75% ausgehen.</property>
                     </child>
                   </object>
                   <packing>
-                    <property name="expand">True</property>
+                    <property name="expand">False</property>
                     <property name="fill">True</property>
                     <property name="position">2</property>
                   </packing>
@@ -1951,7 +1952,7 @@ für Hobbybrauer kann man von einem Wert von 65 bis 75% ausgehen.</property>
                     </child>
                   </object>
                   <packing>
-                    <property name="expand">True</property>
+                    <property name="expand">False</property>
                     <property name="fill">True</property>
                     <property name="position">3</property>
                   </packing>
@@ -1986,7 +1987,7 @@ für Hobbybrauer kann man von einem Wert von 65 bis 75% ausgehen.</property>
                     </child>
                   </object>
                   <packing>
-                    <property name="expand">True</property>
+                    <property name="expand">False</property>
                     <property name="fill">True</property>
                     <property name="position">4</property>
                   </packing>
@@ -2021,7 +2022,7 @@ für Hobbybrauer kann man von einem Wert von 65 bis 75% ausgehen.</property>
                     </child>
                   </object>
                   <packing>
-                    <property name="expand">True</property>
+                    <property name="expand">False</property>
                     <property name="fill">True</property>
                     <property name="position">5</property>
                   </packing>
@@ -2056,7 +2057,7 @@ für Hobbybrauer kann man von einem Wert von 65 bis 75% ausgehen.</property>
                     </child>
                   </object>
                   <packing>
-                    <property name="expand">True</property>
+                    <property name="expand">False</property>
                     <property name="fill">True</property>
                     <property name="position">6</property>
                   </packing>
@@ -2186,7 +2187,7 @@ für Hobbybrauer kann man von einem Wert von 65 bis 75% ausgehen.</property>
             </child>
           </object>
           <packing>
-            <property name="expand">True</property>
+            <property name="expand">False</property>
             <property name="fill">True</property>
             <property name="position">0</property>
           </packing>
@@ -2367,7 +2368,7 @@ für Hobbybrauer kann man von einem Wert von 65 bis 75% ausgehen.</property>
                         </child>
                       </object>
                       <packing>
-                        <property name="expand">True</property>
+                        <property name="expand">False</property>
                         <property name="fill">True</property>
                         <property name="position">6</property>
                       </packing>
@@ -2386,7 +2387,7 @@ für Hobbybrauer kann man von einem Wert von 65 bis 75% ausgehen.</property>
             </child>
           </object>
           <packing>
-            <property name="expand">True</property>
+            <property name="expand">False</property>
             <property name="fill">True</property>
             <property name="position">1</property>
           </packing>
@@ -2401,7 +2402,7 @@ für Hobbybrauer kann man von einem Wert von 65 bis 75% ausgehen.</property>
             <signal name="clicked" handler="on_button11_clicked" swapped="no"/>
           </object>
           <packing>
-            <property name="expand">True</property>
+            <property name="expand">False</property>
             <property name="fill">True</property>
             <property name="position">2</property>
           </packing>
@@ -2474,7 +2475,7 @@ für Hobbybrauer kann man von einem Wert von 65 bis 75% ausgehen.</property>
             </child>
           </object>
           <packing>
-            <property name="expand">True</property>
+            <property name="expand">False</property>
             <property name="fill">True</property>
             <property name="position">0</property>
           </packing>
@@ -2531,7 +2532,7 @@ für Hobbybrauer kann man von einem Wert von 65 bis 75% ausgehen.</property>
             <signal name="clicked" handler="on_button12_clicked" swapped="no"/>
           </object>
           <packing>
-            <property name="expand">True</property>
+            <property name="expand">False</property>
             <property name="fill">True</property>
             <property name="position">2</property>
           </packing>
@@ -2604,7 +2605,7 @@ für Hobbybrauer kann man von einem Wert von 65 bis 75% ausgehen.</property>
             </child>
           </object>
           <packing>
-            <property name="expand">True</property>
+            <property name="expand">False</property>
             <property name="fill">True</property>
             <property name="position">0</property>
           </packing>
@@ -2769,7 +2770,7 @@ für Hobbybrauer kann man von einem Wert von 65 bis 75% ausgehen.</property>
                         </child>
                       </object>
                       <packing>
-                        <property name="expand">True</property>
+                        <property name="expand">False</property>
                         <property name="fill">True</property>
                         <property name="position">2</property>
                       </packing>
@@ -2803,7 +2804,7 @@ für Hobbybrauer kann man von einem Wert von 65 bis 75% ausgehen.</property>
             </child>
           </object>
           <packing>
-            <property name="expand">True</property>
+            <property name="expand">False</property>
             <property name="fill">True</property>
             <property name="position">2</property>
           </packing>
@@ -2818,7 +2819,7 @@ für Hobbybrauer kann man von einem Wert von 65 bis 75% ausgehen.</property>
             <signal name="clicked" handler="on_button14_clicked" swapped="no"/>
           </object>
           <packing>
-            <property name="expand">True</property>
+            <property name="expand">False</property>
             <property name="fill">True</property>
             <property name="position">3</property>
           </packing>
