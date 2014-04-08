@@ -123,7 +123,7 @@ class Biersimulator (object):
 			self.obj("combobox1").append_text('%s "%s"' % (r['typ'], r['name']))
 		self.obj("combobox1").set_active(0)
 		# Schüttungs-Treeview initialisieren:
-		menge = gtk.TreeViewColumn("Menge in kg", gtk.CellRendererText(), text=0)
+		menge = gtk.TreeViewColumn("Anteil in %", gtk.CellRendererText(), text=0)
 		typ = gtk.TreeViewColumn("Typ", gtk.CellRendererText(), text=1)
 		farbe = gtk.TreeViewColumn("Farbe in EBC", gtk.CellRendererText(), text=2)
 		self.obj("treeview2").append_column(menge)
@@ -309,7 +309,7 @@ class Biersimulator (object):
 	def fill_model_schuettung(self):
 		self.model_schuettung.clear()
 		for item in self.rezept['maischen']['schuettung']:
-			self.model_schuettung.append(["%.3f" % (item[0]*self.schuettung), item[1], "%.1f" % (self.malzinfo_from_name(item[1])[1])])
+			self.model_schuettung.append(["%.1f" % (item[0]*100), item[1], "%.1f" % (self.malzinfo_from_name(item[1])[1])])
 	def fill_model_rasten(self):
 		self.model_rasten.clear()
 		for item in self.rezept['maischen']['rasten']:
@@ -534,7 +534,7 @@ class Biersimulator (object):
 		self.obj("window3").show()
 		self.obj("window3").maximize()
 	###############
-	### window3 ###
+	### window3 ### (Ergebnis)
 	###############
 	def on_window3_delete_event(self, *args):
 		self.obj("window3").hide()
@@ -547,18 +547,96 @@ class Biersimulator (object):
 	def on_window4_delete_event(self, *args):
 		self.obj("window4").hide()
 		return True
+	def on_radiobutton6_toggled(self, widget, *args):
+		if widget.get_active():
+			self.obj("entry16").set_sensitive(True)
+		else:
+			self.obj("entry16").set_sensitive(False)
+	def on_button11_clicked(self, widget, *args):
+		# Dauer einlesen:
+		try:
+			dauer = int(self.obj("entry15").get_text())
+		except ValueError:
+			self.show_msg("Ungültige Eingabe!", "Der Wert für die Dauer darf nur ganze Zahlen enthalten.", gtk.MESSAGE_WARNING)
+			return
+		if dauer < 1:
+			self.show_msg("Ungültige Eingabe!", "Der Wert für die Dauer muss >= 1 sein.", gtk.MESSAGE_WARNING)
+			return
+		# Typ einlesen:
+		if self.obj("radiobutton1").get_active():
+			typ = 'glucanase'
+			temp = 37
+		elif self.obj("radiobutton2").get_active():
+			typ = 'ferula'
+			temp = 44
+		elif self.obj("radiobutton3").get_active():
+			typ = 'eiweiss'
+			temp = 57
+		elif self.obj("radiobutton4").get_active():
+			typ = 'maltose'
+			temp = 62
+		elif self.obj("radiobutton5").get_active():
+			typ = 'zucker'
+			temp = 72
+		else:
+			typ = ''
+			# Temperatur einlesen:
+			try:
+				temp = int(self.obj("entry16").get_text())
+			except ValueError:
+				self.show_msg("Ungültige Eingabe!", "Der Wert für die Temperatur darf nur ganze Zahlen enthalten.", gtk.MESSAGE_WARNING)
+				return
+			if temp < 1 or temp > 100:
+				self.show_msg("Ungültige Eingabe!", "Der Wert für die Temperatur muss zwischen 1 und 100 liegen.", gtk.MESSAGE_WARNING)
+				return
+		# Rast hinzufügen:
+		self.rezept['maischen']['rasten'].append((typ, temp, dauer))
+		self.fill_model_rasten()
+		# Fenster ausblenden:
+		self.obj("window4").hide()
 	###############
 	### window5 ### (Malz hinzufügen)
 	###############
 	def on_window5_delete_event(self, *args):
 		self.obj("window5").hide()
 		return True
+	def on_button12_clicked(self, widget, *args):
+		# Anteil einlesen:
+		try:
+			anteil = float(self.obj("entry18").get_text())
+		except ValueError:
+			self.show_msg("Ungültige Eingabe!", "Der Wert für den Malzanteil darf nur Zahlen enthalten.", gtk.MESSAGE_WARNING)
+			return
+		if anteil < 0 or anteil > 100:
+			self.show_msg("Ungültige Eingabe!", "Der Wert für den Malzanteil muss zwischen 0 und 100 liegen.", gtk.MESSAGE_WARNING)
+			return
+		# bisherige Schüttung summieren:
+		gesamt = 0
+		for item in self.rezept['maischen']['schuettung']:
+			gesamt += item[0]*100
+		gesamt += anteil
+		if gesamt > 100:
+			self.show_msg("Ungültige Eingabe!", "Insgesamt können nur 100% Schüttung aufgeteilt werden.", gtk.MESSAGE_WARNING)
+			return
+		# Typ einlesen:
+		if self.obj("treeview1").get_selection().count_selected_rows() != 1:
+			self.show_msg("Ungültige Eingabe!", "Es wurde kein Malztyp ausgewählt.", gtk.MESSAGE_WARNING)
+			return
+		row = self.obj("treeview1").get_selection().get_selected()
+		typ = row[0].get_value(row[1], 0)
+		# Malz hinzufügen:
+		self.rezept['maischen']['schuettung'].append((anteil/100., typ))
+		self.fill_model_schuettung()
+		# Fenster ausblenden:
+		self.obj("window5").hide()
 	###############
 	### window6 ### (Hopfen hinzufügen)
 	###############
 	def on_window6_delete_event(self, *args):
 		self.obj("window6").hide()
 		return True
+	def on_button14_clicked(self, widget, *args):
+		pass
 if __name__ == '__main__':
 	bs = Biersimulator()
 	bs.run()
