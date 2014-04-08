@@ -115,6 +115,7 @@
       <action-widget response="0">button10</action-widget>
     </action-widgets>
   </object>
+  <object class="GtkTextBuffer" id="textbuffer2"/>
   <object class="GtkTextBuffer" id="textbuffer3">
     <property name="text" translatable="yes">Der Stammwürzegehalt gibt an, wie viel Zucker im Bier vor der Gärung enthalten war. Danach lassen sich Biere in die vier Gattungen
 Einfachbier, Schankbier, Vollbier und Starkbier einordnen.
@@ -145,7 +146,6 @@ unterschiedlich, daher kann sie genau nur experimentell bestimmt werden.
 Moderne, kommerzielle Brauereien erreichen einen Wert von über 75%,
 für Hobbybrauer kann man von einem Wert von 65 bis 75% ausgehen.</property>
   </object>
-  <object class="GtkTextBuffer" id="textbuffer2"/>
   <object class="GtkWindow" id="window1">
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">Biersimulator v0.1: Rezeptauswahl</property>
@@ -159,11 +159,12 @@ für Hobbybrauer kann man von einem Wert von 65 bis 75% ausgehen.</property>
           <object class="GtkImage" id="image1">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="stock">gtk-missing-image</property>
+            <property name="pixbuf">img/logo.png</property>
           </object>
           <packing>
             <property name="expand">True</property>
             <property name="fill">True</property>
+            <property name="padding">47</property>
             <property name="position">0</property>
           </packing>
         </child>

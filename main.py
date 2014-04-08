@@ -408,7 +408,7 @@ class Biersimulator (object):
 			"img/kochen.png",
 			"",
 			"img/gaeren.png",
-			""
+			"img/lagern.png"
 		]
 		texte = [
 			"""""",
