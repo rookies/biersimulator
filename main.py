@@ -635,8 +635,46 @@ class Biersimulator (object):
 	def on_window6_delete_event(self, *args):
 		self.obj("window6").hide()
 		return True
+	def on_radiobutton8_toggled(self, widget, *args):
+		if widget.get_active():
+			self.obj("entry20").set_sensitive(True)
+		else:
+			self.obj("entry20").set_sensitive(False)
 	def on_button14_clicked(self, widget, *args):
-		pass
+		# Menge einlesen:
+		try:
+			menge = float(self.obj("entry19").get_text())
+		except ValueError:
+			self.show_msg("Ungültige Eingabe!", "Der Wert für die Hopfenmenge darf nur Zahlen enthalten.", gtk.MESSAGE_WARNING)
+			return
+		if menge < 0:
+			self.show_msg("Ungültige Eingabe!", "Der Wert für die Hopfenmenge muss positiv sein.", gtk.MESSAGE_WARNING)
+			return
+		# Typ einlesen:
+		if self.obj("treeview5").get_selection().count_selected_rows() != 1:
+			self.show_msg("Ungültige Eingabe!", "Es wurde kein Hopfentyp ausgewählt.", gtk.MESSAGE_WARNING)
+			return
+		row = self.obj("treeview5").get_selection().get_selected()
+		typ = row[0].get_value(row[1], 1)
+		# Kochzeit einlesen:
+		if self.obj("radiobutton7").get_active():
+			zeit = -1
+		elif self.obj("radiobutton8").get_active():
+			try:
+				zeit = int(self.obj("entry20").get_text())
+			except ValueError:
+				self.show_msg("Ungültige Eingabe!", "Der Wert für die Kochzeit darf nur ganze Zahlen enthalten.", gtk.MESSAGE_WARNING)
+				return
+			if zeit < 0:
+				self.show_msg("Ungültige Eingabe!", "Der Wert für die Kochzeit muss positiv sein.", gtk.MESSAGE_WARNING)
+				return
+		else:
+			zeit = -2
+		# Hopfen hinzufügen:
+		self.rezept['kochen']['hopfen'].append((typ, menge/self.ausschlagmenge, zeit))
+		self.fill_model_hopfengaben()
+		# Fenster ausblenden:
+		self.obj("window6").hide()
 if __name__ == '__main__':
 	bs = Biersimulator()
 	bs.run()
