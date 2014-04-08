@@ -18,6 +18,16 @@
     <property name="step_increment">1</property>
     <property name="page_increment">10</property>
   </object>
+  <object class="GtkTextBuffer" id="textbuffer1">
+    <property name="text" translatable="yes">Die Sudhausausbeute gibt an, wie viel und wie starkes Bier
+man mit einer bestimmten Menge Malz brauen kann.
+Je höher die Biermenge und je höher die Stammwürze bei
+gleicher Malzmenge also ist, desto höher ist auch die Sudhausausbeute.
+Sie hängt von vielen Faktoren ab und ist bei jeder Brauanlage
+unterschiedlich, daher kann sie genau nur experimentell bestimmt werden.
+Moderne, kommerzielle Brauereien erreichen einen Wert von über 75%,
+für Hobbybrauer kann man von einem Wert von 65 bis 75% ausgehen.</property>
+  </object>
   <object class="GtkMessageDialog" id="messagedialog1">
     <property name="can_focus">False</property>
     <property name="border_width">5</property>
@@ -135,16 +145,6 @@ Der CO2-Gehalt gibt an, wie viel Kohlensäure im Bier enthalten ist und entschei
 Weizenbiere haben einen besonders hohen Gehalt von bis zu 9,0 g/l, Lager-Biere bewegen sich in etwa zwischen 4,0 und 5,5 g/l.
 
 Die Aromen sind vor allem vom Aromahopfen abhängig, wurde nur Bitterhopfen ausgewählt, werden sie hier nicht angezeigt.</property>
-  </object>
-  <object class="GtkTextBuffer" id="textbuffer1">
-    <property name="text" translatable="yes">Die Sudhausausbeute gibt an, wie viel und wie starkes Bier
-man mit einer bestimmten Menge Malz brauen kann.
-Je höher die Biermenge und je höher die Stammwürze bei
-gleicher Malzmenge also ist, desto höher ist auch die Sudhausausbeute.
-Sie hängt von vielen Faktoren ab und ist bei jeder Brauanlage
-unterschiedlich, daher kann sie genau nur experimentell bestimmt werden.
-Moderne, kommerzielle Brauereien erreichen einen Wert von über 75%,
-für Hobbybrauer kann man von einem Wert von 65 bis 75% ausgehen.</property>
   </object>
   <object class="GtkWindow" id="window1">
     <property name="can_focus">False</property>
@@ -1331,69 +1331,7 @@ für Hobbybrauer kann man von einem Wert von 65 bis 75% ausgehen.</property>
                           <packing>
                             <property name="expand">False</property>
                             <property name="fill">True</property>
-                            <property name="position">0</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkFrame" id="frame3">
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="label_xalign">0</property>
-                            <property name="shadow_type">none</property>
-                            <child>
-                              <object class="GtkAlignment" id="alignment3">
-                                <property name="visible">True</property>
-                                <property name="can_focus">False</property>
-                                <property name="left_padding">12</property>
-                                <child>
-                                  <object class="GtkHBox" id="hbox3">
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">False</property>
-                                    <child>
-                                      <object class="GtkEntry" id="entry11">
-                                        <property name="visible">True</property>
-                                        <property name="can_focus">True</property>
-                                        <property name="invisible_char">●</property>
-                                        <property name="primary_icon_activatable">False</property>
-                                        <property name="secondary_icon_activatable">False</property>
-                                        <property name="primary_icon_sensitive">True</property>
-                                        <property name="secondary_icon_sensitive">True</property>
-                                      </object>
-                                      <packing>
-                                        <property name="expand">True</property>
-                                        <property name="fill">True</property>
-                                        <property name="position">0</property>
-                                      </packing>
-                                    </child>
-                                    <child>
-                                      <object class="GtkLabel" id="label18">
-                                        <property name="visible">True</property>
-                                        <property name="can_focus">False</property>
-                                        <property name="label" translatable="yes">%</property>
-                                      </object>
-                                      <packing>
-                                        <property name="expand">True</property>
-                                        <property name="fill">True</property>
-                                        <property name="position">1</property>
-                                      </packing>
-                                    </child>
-                                  </object>
-                                </child>
-                              </object>
-                            </child>
-                            <child type="label">
-                              <object class="GtkLabel" id="label1">
-                                <property name="visible">True</property>
-                                <property name="can_focus">False</property>
-                                <property name="label" translatable="yes">&lt;b&gt;Endvergärungsgrad&lt;/b&gt;</property>
-                                <property name="use_markup">True</property>
-                              </object>
-                            </child>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">True</property>
-                            <property name="position">1</property>
+                            <property name="position">4</property>
                           </packing>
                         </child>
                       </object>

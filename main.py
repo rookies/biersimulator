@@ -276,7 +276,6 @@ class Biersimulator (object):
 				else:
 					i += 1
 		self.obj("combobox2").set_active(i)
-		self.obj("entry11").set_text("%d" % self.rezept['gaeren']['evg'])
 		self.obj("entry9").set_text("%d" % self.rezept['gaeren']['temperatur'])
 		self.obj("entry12").set_text("%.2f" % self.rezept['gaeren']['druck'])
 		# Lagern:
@@ -351,18 +350,11 @@ class Biersimulator (object):
 		if i < len(self.hefe_ug):
 			# UG
 			self.rezept['gaeren']['hefe'] = (0, self.hefe_ug[i][0])
+			self.rezept['gaeren']['evg'] = self.hefe_ug[i][3]
 		else:
 			# OG
 			self.rezept['gaeren']['hefe'] = (1, self.hefe_og[i-len(self.hefe_ug)][0])
-		##
-		try:
-			self.rezept['gaeren']['evg'] = int(self.obj("entry11").get_text())
-		except ValueError:
-			self.show_msg("Ungültige Eingabe!", "Der Wert für den Endvergärungsgrad darf nur ganze Zahlen enthalten.", gtk.MESSAGE_WARNING)
-			return False
-		if self.rezept['gaeren']['evg'] < 1 or self.rezept['gaeren']['evg'] > 100:
-			self.show_msg("Ungültige Eingabe!", "Der Wert für den Endvergärungsgrad muss zwischen 1 und 100 liegen.", gtk.MESSAGE_WARNING)
-			return False
+			self.rezept['gaeren']['evg'] = self.hefe_og[i-len(self.hefe_ug)][3]
 		##
 		try:
 			self.rezept['gaeren']['temperatur'] = int(self.obj("entry9").get_text())
@@ -411,13 +403,80 @@ class Biersimulator (object):
 			"img/lagern.png"
 		]
 		texte = [
-			"""""",
-			"""""",
-			"""""",
-			"""""",
-			"""""",
-			"""""",
-			""""""
+			"""Unter dem Schroten versteht man die Zerkleinerung des Malzes, die nötig ist,
+um während des Maischens an die Korninhaltsstoffe zu gelangen.
+Dabei ist es wichtig, die richtige Schrotqualität zu treffen.
+Das Malzkorn darf weder zu fein noch zu grob zerkleinert werden.
+
+Um mit dem Schroten zu beginnen, wählen Sie die gewünschten Malzsorten aus.""",
+
+			"""Der Maischevorgang ist für die Bierherstellung grundlegend,
+da er über die Farbe und die Vergärbarkeit der späteren Würze entscheidet.
+Während des Maischens lösen sich im Malz enthaltene Enzyme,
+wobei Stärke aus dem Malz und der Rohfrucht in Zucker umgewandelt wird.
+Wird nicht alle Stärke abgebaut, entsteht nicht genug löslicher Zucker, 
+weshalb das Bier nicht richtig vergären kann und einen mehligen Geschmack entwickelt.
+Beim Einmeischen wird das Malzschrot gründlich mit dem Hauptguss vermengt. 
+Die sogenannte Kesselmaische bezeichnet ein Verfahren, bei dem sich die gesamte Maische
+in einem beheizbaren Kessel befindet. Diese wird unter Rühren von Rast zu Rast weiter aufgeheizt.
+Eine Rast bezeichnet eine Temperaturstufe. Welche Rast zum Einsatz kommt, hängt von den eingesetzten
+Malz - und Getreidesorten und von den gewünschten Würzeeigenschaften (Vergärbarkeit, Schaumverhalten) ab.
+
+Rastenübersicht:
+Glucanaserast: Abbau von ß-Glucan durch Glucanasemit hohem Glukanantteil (z.B. Roggenmalz)
+Ferulasäurerast: Bildung von Ferulasäure (Vorläufer von Nelke- und Bananenaromen bei Weizenbier)		
+Eiweißrast: Spaltung von langkettigen Proteinen
+Maltoserast: Abbau von Stärke zu vergärbarer Maltose
+Verzuckerungsrast: Abbau von Stärke zu nicht-vergärbaren Dextrinen
+
+Wählen Sie nun die Menge des Hauptgusses, die Temperatur, bei der das Malz zugegeben wird, die einzelnen
+Rasten und die Temperatur, bei der das Maischen beendet ist.""",
+
+			"""Das Läutern bezeichnet die Filtration des ausgekochten Malzes aus der Maische.
+Das Läutern beginnt, indem die Maische in einen Läuterbottich gegeben wird.
+Dieser ist ein Gefäß über dessem Boden noch ein Siebboden mit feinen Schlitzen liegt.
+Dabei läuft die Würze durch das Sieb ab. Die festen Maischebestandteile (Treber) bleiben im Bottich zurück,
+weshalb sie mit Wasser ausgewaschen werden (Nachguss), um möglichst alle Inhaltsstoffe herauszubekommen. 
+Ergebnis dieses etwa 3 Stunden dauernden Prozesses ist die Würze, in der noch Aromastoffe und andere Substanzen
+(z.B. Eiweiß) gelöst sind, die für den Geschmack des Bieres bedeutsam sind. Die Zuckerkonzentration des Würze 
+bestimmt außerdem den späteren Alkoholgehalt.
+
+Wählen Sie nun, wie lange die Maische vor dem Abläutern ruhen soll, die Menge des Wassers, das hier noch
+dazu gegeben wird (Nachguss) und die Temperatur dieses Wassers (normalerweise 78 °C).""",
+
+			"""Nach dem Abläufern wird die Würze ca. 60 - 90 Minuten gekocht. Der Hopfen soll zum Geschmack des Bieres beitragen
+und es haltbar machen. Je länger Hopfen kocht, deste mehr Gerb - und Bitterstoffe gibt er ab. Dabei nimmt allerdings
+das feine Hopfenaroma ab. 
+Im Whirlpool wird die Würze durch kräftiges Rühren in einen Strudel versetzt. Dabei bilden Schwebstoffe in der
+Mitte des Kesselbodens einen Trubkegel. Kommt die Flüssigkeit wieder zur Ruhe, wird die Würze abgepumpt.
+
+Wählen Sie jetzt bitte die Dauer des Kochvorgangs und die verschiedenen Hopfengaben. Vorderwürze bedeutet, dass
+der Hopfen noch vor dem Kochen zugegeben wird, wodurch ein besonderes Aroma entsteht.""",
+
+			"""Im nächsten Schritt wird die klare Würze mit Brau - und Eiswasser auf ca. 6°C heruntergekühlt. 
+In diesem Zustand wird Bierhefe zugegeben und diese durch Rühren belüftet. 
+Danach word der Gärbehälter nahezu luftdicht abgeschlossen und an einem Ort ohne Temperaturschwankungen 
+abgestellt. Die Hefe von obergärigem (OG) Bier braucht ca. 15 - 20 °C, die von untergärigem (UG) Bier nur ca. 5 - 10 °C.
+
+Wählen Sie nun die Hefe, die Sie für Ihr Bier verwenden möchten.""",
+
+			"""Die Dauer des Gärungsprozesses hängt von der Biersorte und der Sorte der Hefe ab. Zu Beginn der Gärung
+verarbeitet Hefe Sauerstoff bis dieser aufgebraucht ist. Danach setzt die Umwandlung von Malzzucker 
+in Alkohol und Kohlensäure ein. Dabei bildet sich weißer Schaum (Kräusen) aus Rückständen der Gärung,
+der in den nächsten Tagen dicker wird und das Bier vor Bakterien schützt. Die Hauptgärung ist beendet,
+wenn die Kräusen eingefallen sind.
+
+Wählen Sie bitte die Temperatur, bei der vergoren werden soll, und den Druck, unter dem das Fass stehen soll.
+Beide Faktoren beeinflussen den CO2-Gehalt des Biers.""",
+
+			"""Beim Lagern ist zu beachten, dass das Bier kalt und dunkel steht. Flaschen sollten generell stehend gelagert werden,
+da sich so ggf. Hefereste am Flaschenboden ablagern können. Desweiteren sollten die Flaschen in den ersten Tagen
+nach der Abfüllung kurz entlüftet werden, damit ein hoher CO2-Druck vermieden werden kann, der zur Explosion
+einer Flasche führen kann. Untergärige Biere müssen sofort nach der Abfüllung kühl gelagert werden, obergärige erst 
+3-4 Tage danach.
+
+Wählen Sie nun bitte die Temperatur und Dauer der Lagerung. Wenn Sie damit fertig sind, klicken Sie bitte auf den Button
+\"Brauprozess abschließen\" ganz unten, um das Ergebnis zu sehen."""
 		]
 		self.obj("image2").set_from_file(imgs[nr])
 		self.obj("textbuffer2").set_text(texte[nr])
