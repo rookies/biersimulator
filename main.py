@@ -403,7 +403,7 @@ class Biersimulator (object):
 		imgs = [
 			"img/schroten.png",
 			"img/maischen.png",
-			"",
+			"img/laeutern.png",
 			"img/kochen.png",
 			"",
 			"img/gaeren.png",
