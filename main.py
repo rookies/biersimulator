@@ -1,6 +1,6 @@
 #!/usr/bin/python2
 # -*- coding: utf-8 -*-
-import gtk
+import gtk, math, copy
 
 class Biersimulator (object):
 	#################
@@ -47,13 +47,14 @@ class Biersimulator (object):
 		{
 			'typ': 'Mild Ale',
 			'name': 'Fuffzich',
+			'stammwuerze': 13,
 			'maischen': {
 				'schuettung': [
-					(0.129, 'Wiener'),
-					(0.042, 'Münchner'),
-					(0.013, 'Carahell'),
-					(0.013, 'Melanoidin'),
-					(0.013, 'Rauch')
+					(0.62, 'Wiener'),
+					(0.2, 'Münchner'),
+					(0.06, 'Carahell'),
+					(0.06, 'Melanoidin'),
+					(0.06, 'Rauch')
 				],
 				'hg': 0.625,
 				'ein': 60,
@@ -95,6 +96,7 @@ class Biersimulator (object):
 	builder = None
 	ausbeute = 0
 	ausschlagmenge = 0
+	schuettung = 0
 	model_rezepte = None
 	model_schuettung = None
 	model_rasten = None
@@ -124,38 +126,41 @@ class Biersimulator (object):
 		menge = gtk.TreeViewColumn("Menge in kg", gtk.CellRendererText(), text=0)
 		typ = gtk.TreeViewColumn("Typ", gtk.CellRendererText(), text=1)
 		farbe = gtk.TreeViewColumn("Farbe in EBC", gtk.CellRendererText(), text=2)
-		self.builder.get_object("treeview2").append_column(menge)
-		self.builder.get_object("treeview2").append_column(typ)
-		self.builder.get_object("treeview2").append_column(farbe)
+		self.obj("treeview2").append_column(menge)
+		self.obj("treeview2").append_column(typ)
+		self.obj("treeview2").append_column(farbe)
 		self.model_schuettung = gtk.ListStore(str, str, str)
-		self.builder.get_object("treeview2").set_model(self.model_schuettung)
+		self.obj("treeview2").set_model(self.model_schuettung)
+		self.obj("treeview2").get_selection().connect("changed", self.on_treeview_selection2_changed)
 		# Rasten-Treeview initialisieren:
 		temp = gtk.TreeViewColumn("Temperatur in °C", gtk.CellRendererText(), text=0)
 		typ = gtk.TreeViewColumn("Typ", gtk.CellRendererText(), text=1)
 		dauer = gtk.TreeViewColumn("Dauer in Minuten", gtk.CellRendererText(), text=2)
-		self.builder.get_object("treeview3").append_column(temp)
-		self.builder.get_object("treeview3").append_column(typ)
-		self.builder.get_object("treeview3").append_column(dauer)
+		self.obj("treeview3").append_column(temp)
+		self.obj("treeview3").append_column(typ)
+		self.obj("treeview3").append_column(dauer)
 		self.model_rasten = gtk.ListStore(str, str, str)
-		self.builder.get_object("treeview3").set_model(self.model_rasten)
+		self.obj("treeview3").set_model(self.model_rasten)
+		self.obj("treeview3").get_selection().connect("changed", self.on_treeview_selection3_changed)
 		# Hopfengaben-Treeview initialisieren:
 		menge = gtk.TreeViewColumn("Menge in g", gtk.CellRendererText(), text=0)
 		typ = gtk.TreeViewColumn("Typ", gtk.CellRendererText(), text=1)
 		kochdauer = gtk.TreeViewColumn("Kochdauer in Minuten", gtk.CellRendererText(), text=2)
-		self.builder.get_object("treeview4").append_column(menge)
-		self.builder.get_object("treeview4").append_column(typ)
-		self.builder.get_object("treeview4").append_column(kochdauer)
+		self.obj("treeview4").append_column(menge)
+		self.obj("treeview4").append_column(typ)
+		self.obj("treeview4").append_column(kochdauer)
 		self.model_hopfengaben = gtk.ListStore(str, str, str)
-		self.builder.get_object("treeview4").set_model(self.model_hopfengaben)
+		self.obj("treeview4").set_model(self.model_hopfengaben)
+		self.obj("treeview4").get_selection().connect("changed", self.on_treeview_selection4_changed)
 		# Malz-Treeview initialisieren:
 		name = gtk.TreeViewColumn("Name", gtk.CellRendererText(), text=0)
 		farbe = gtk.TreeViewColumn("Farbe in EBC", gtk.CellRendererText(), text=1)
 		anteil = gtk.TreeViewColumn("max. Anteil in %", gtk.CellRendererText(), text=2)
-		self.builder.get_object("treeview1").append_column(name)
-		self.builder.get_object("treeview1").append_column(farbe)
-		self.builder.get_object("treeview1").append_column(anteil)
+		self.obj("treeview1").append_column(name)
+		self.obj("treeview1").append_column(farbe)
+		self.obj("treeview1").append_column(anteil)
 		self.model_malze = gtk.ListStore(str, str, str)
-		self.builder.get_object("treeview1").set_model(self.model_malze)
+		self.obj("treeview1").set_model(self.model_malze)
 		for item in self.malze:
 			self.model_malze.append([item[0], "%.1f" % (item[1]), "%d" % (item[2])])
 		# Hopfen-Treeview initialisieren:
@@ -164,13 +169,13 @@ class Biersimulator (object):
 		land = gtk.TreeViewColumn("Land", gtk.CellRendererText(), text=2)
 		gehalt = gtk.TreeViewColumn("Bitterstoffgehalt in %", gtk.CellRendererText(), text=3)
 		aroma = gtk.TreeViewColumn("Aroma", gtk.CellRendererText(), text=4)
-		self.builder.get_object("treeview5").append_column(art)
-		self.builder.get_object("treeview5").append_column(name)
-		self.builder.get_object("treeview5").append_column(land)
-		self.builder.get_object("treeview5").append_column(gehalt)
-		self.builder.get_object("treeview5").append_column(aroma)
+		self.obj("treeview5").append_column(art)
+		self.obj("treeview5").append_column(name)
+		self.obj("treeview5").append_column(land)
+		self.obj("treeview5").append_column(gehalt)
+		self.obj("treeview5").append_column(aroma)
 		self.model_hopfen = gtk.ListStore(str, str, str, str, str)
-		self.builder.get_object("treeview5").set_model(self.model_hopfen)
+		self.obj("treeview5").set_model(self.model_hopfen)
 		for item in self.hopfen_bitter:
 			self.model_hopfen.append(['Bitter', item[0], item[1], "%.2f" % (item[2]), ", ".join(item[3])])
 		for item in self.hopfen_aroma:
@@ -232,6 +237,8 @@ class Biersimulator (object):
 		if self.ausschlagmenge < 1 or self.ausschlagmenge > 10000:
 			self.show_msg("Ungültige Eingabe!", "Der Wert für die Biermenge muss zwischen 1 und 10.000 liegen.", gtk.MESSAGE_WARNING, "window1")
 			return
+		# Schüttungsmenge berechnen:
+		self.schuettung = (self.masspercent_to_af(self.rezept['stammwuerze'])*self.ausschlagmenge)/self.ausbeute
 		# Fenster wechseln:
 		self.obj("window1").hide()
 		self.obj("window2").show()
@@ -302,7 +309,7 @@ class Biersimulator (object):
 	def fill_model_schuettung(self):
 		self.model_schuettung.clear()
 		for item in self.rezept['maischen']['schuettung']:
-			self.model_schuettung.append(["%.3f" % (item[0]*self.ausschlagmenge), item[1], "%.1f" % (self.malzinfo_from_name(item[1])[1])])
+			self.model_schuettung.append(["%.3f" % (item[0]*self.schuettung), item[1], "%.1f" % (self.malzinfo_from_name(item[1])[1])])
 	def fill_model_rasten(self):
 		self.model_rasten.clear()
 		for item in self.rezept['maischen']['rasten']:
@@ -334,6 +341,18 @@ class Biersimulator (object):
 			if item[0] == name:
 				return item
 		return None
+	def hopfeninfo_from_name(self, name):
+		for item in self.hopfen_bitter:
+			if item[0] == name:
+				return item
+		for item in self.hopfen_aroma:
+			if item[0] == name:
+				return item
+		return None
+	def masspercent_to_sg(self, mp):
+		return (mp/250.)+1
+	def masspercent_to_af(self, mp):
+		return mp*self.masspercent_to_sg(mp)
 	###############
 	### window1 ### (Rezept auswählen)
 	###############
@@ -345,7 +364,7 @@ class Biersimulator (object):
 		self.obj("messagedialog1").show()
 	# Button Start fertiges Rezept
 	def on_button2_clicked(self, widget, *args):
-		self.rezept = self.rezepte[self.obj("combobox1").get_active()]
+		self.rezept = copy.deepcopy(self.rezepte[self.obj("combobox1").get_active()])
 		self.start_simulator()
 		self.set_fields()
 	# Button Start eigenes Rezept
@@ -397,44 +416,130 @@ class Biersimulator (object):
 	def on_window2_delete_event(self, *args):
 		self.restart()
 		return True
+	def on_treeview_selection2_changed(self, selection):
+		if selection.count_selected_rows() is 1:
+			self.obj("button5").set_sensitive(True)
+		else:
+			self.obj("button5").set_sensitive(False)
 	# Button Malz hinzufügen
 	def on_button3_clicked(self, widget, *args):
 		self.obj("window5").show()
 	# Button Malz entfernen
 	def on_button5_clicked(self, widget, *args):
-		pass
+		row = self.obj("treeview2").get_selection().get_selected()
+		i = row[0].get_path(row[1])[0]
+		self.rezept['maischen']['schuettung'].pop(i)
+		self.fill_model_schuettung()
+	def on_treeview_selection3_changed(self, selection):
+		if selection.count_selected_rows() is 1:
+			self.obj("button7").set_sensitive(True)
+		else:
+			self.obj("button7").set_sensitive(False)
 	# Button Rast hinzufügen
 	def on_button6_clicked(self, widget, *args):
 		self.obj("window4").show()
 	# Button Rast entfernen
 	def on_button7_clicked(self, widget, *args):
-		pass
+		row = self.obj("treeview3").get_selection().get_selected()
+		i = row[0].get_path(row[1])[0]
+		self.rezept['maischen']['rasten'].pop(i)
+		self.fill_model_rasten()
+	def on_treeview_selection4_changed(self, selection):
+		if selection.count_selected_rows() is 1:
+			self.obj("button9").set_sensitive(True)
+		else:
+			self.obj("button9").set_sensitive(False)
 	# Button Hopfen hinzufügen
 	def on_button8_clicked(self, widget, *args):
 		self.obj("window6").show()
 	# Button Hopfen entfernen
 	def on_button9_clicked(self, widget, *args):
-		pass
+		row = self.obj("treeview4").get_selection().get_selected()
+		i = row[0].get_path(row[1])[0]
+		self.rezept['kochen']['hopfen'].pop(i)
+		self.fill_model_hopfengaben()
 	# Button Brauprozess abschließen
 	def on_button13_clicked(self, widget, *args):
 		# Daten einlesen:
 		self.get_fields()
 		# Stammwürze berechnen:
+		### !!! self.rezept['stammwuerze'] setzen !!!
+		if self.rezept['stammwuerze'] < 7:
+			gattung = 'Einfachbier'
+		elif self.rezept['stammwuerze'] < 11:
+			gattung = 'Schankbier'
+		elif self.rezept['stammwuerze'] < 16:
+			gattung = 'Vollbier'
+		else:
+			gattung = 'Starkbier'
+		self.obj("label52").set_text("%.1f %%" % (self.rezept['stammwuerze']))
+		self.obj("label62").set_markup("<i>%s</i>" % (gattung))
+		# Restextrakt berechnen:
+		restextrakt = self.rezept['stammwuerze']*(1-(self.rezept['gaeren']['evg']/100.))
+		self.obj("label36").set_text("%.1f %%" % (restextrakt))
 		# Farbe berechnen:
+		farbe = 0
+		for item in self.rezept['maischen']['schuettung']:
+			farbe += self.malzinfo_from_name(item[1])[1] * item[0]
+		farbe *= self.rezept['stammwuerze']/10.
+		if farbe < 8:
+			farbeindruck = 'hell'
+		elif farbe < 12:
+			farbeindruck = 'gold'
+		elif farbe < 20:
+			farbeindruck = 'bernstein'
+		elif farbe < 35:
+			farbeindruck = 'kupfer'
+		elif farbe < 60:
+			farbeindruck = 'braun'
+		else:
+			farbeindruck = 'schwarz'
+		self.obj("label54").set_text("%d EBC" % (farbe))
+		self.obj("label61").set_markup("<i>%s</i>" % (farbeindruck))
 		# Bitterkeit berechnen:
+		bitterkeit = 0
+		for item in self.rezept['kochen']['hopfen']:
+			if item[2] is -1:
+				dauer = self.rezept['kochen']['dauer']
+			elif item[2] is -2:
+				dauer = 0
+			else:
+				dauer = item[2]
+			menge = item[1]*self.ausschlagmenge
+			alpha = self.hopfeninfo_from_name(item[0])[2]
+			bitterkeit += ((menge*alpha*10)/self.ausschlagmenge) * (1.65*(0.000125**(0.004*self.rezept['stammwuerze']))) * ((1-(math.e**(-0.04*dauer)))/4.15)
+		bitterkeit_rel = bitterkeit/self.rezept['stammwuerze']
+		if bitterkeit_rel < 1:
+			bitterkeit_eindruck = 'sehr mild'
+		elif bitterkeit_rel < 1.5:
+			bitterkeit_eindruck = 'mild'
+		elif bitterkeit_rel < 2.5:
+			bitterkeit_eindruck = 'ausgewogen'
+		elif bitterkeit_rel < 3.0:
+			bitterkeit_eindruck = 'moderat herb'
+		else:
+			bitterkeit_eindruck = 'sehr herb'
+		self.obj("label56").set_text("%d IBU" % (bitterkeit))
+		self.obj("label63").set_text("%.2f IBU pro %% Stammwürze" % (bitterkeit_rel))
+		self.obj("label64").set_markup("<i>%s</i>" % (bitterkeit_eindruck))
 		# Alkoholgehalt berechnen:
+		alkoholgehalt = (0.405*(self.rezept['stammwuerze']-restextrakt))/0.795
+		self.obj("label58").set_text("%.2f %%vol" % (alkoholgehalt))
 		# CO2-Gehalt berechnen:
 		co2 = (self.rezept['gaeren']['druck']+1)*(0.0015461*(self.rezept['gaeren']['temperatur']**2) + 0.10711*self.rezept['gaeren']['temperatur'] + 3.1962)
 		self.obj("label60").set_text("%.2f" % co2)
 		# Biertyp berechnen:
 		# Ergebnis-Fenster anzeigen:
+		self.obj("window2").hide()
 		self.obj("window3").show()
-		print(self.rezept)
+		self.obj("window3").maximize()
 	###############
 	### window3 ###
 	###############
 	def on_window3_delete_event(self, *args):
 		self.obj("window3").hide()
+		self.obj("window2").show()
+		self.obj("window2").maximize()
 		return True
 	###############
 	### window4 ### (Rast hinzufügen)

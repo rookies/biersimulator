@@ -1740,7 +1740,7 @@ für Hobbybrauer kann man von einem Wert von 65 bis 75% ausgehen.</property>
                               <object class="GtkLabel" id="label52">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="label" translatable="yes">13,0 %</property>
+                                <property name="label" translatable="yes">XX,X %</property>
                               </object>
                               <packing>
                                 <property name="expand">True</property>
@@ -1752,7 +1752,7 @@ für Hobbybrauer kann man von einem Wert von 65 bis 75% ausgehen.</property>
                               <object class="GtkLabel" id="label62">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="label" translatable="yes">&lt;i&gt;Vollbier&lt;/i&gt;</property>
+                                <property name="label" translatable="yes">&lt;i&gt;XXX&lt;/i&gt;</property>
                                 <property name="use_markup">True</property>
                               </object>
                               <packing>
@@ -1781,6 +1781,52 @@ für Hobbybrauer kann man von einem Wert von 65 bis 75% ausgehen.</property>
                   </packing>
                 </child>
                 <child>
+                  <object class="GtkFrame" id="frame15">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="label_xalign">0</property>
+                    <property name="shadow_type">none</property>
+                    <child>
+                      <object class="GtkAlignment" id="alignment15">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="left_padding">12</property>
+                        <child>
+                          <object class="GtkVBox" id="vbox6">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <child>
+                              <object class="GtkLabel" id="label36">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="label" translatable="yes">XX,X %</property>
+                              </object>
+                              <packing>
+                                <property name="expand">True</property>
+                                <property name="fill">True</property>
+                                <property name="position">0</property>
+                              </packing>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                    <child type="label">
+                      <object class="GtkLabel" id="label16">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="label" translatable="yes">&lt;b&gt;Restextraktgehalt&lt;/b&gt;</property>
+                        <property name="use_markup">True</property>
+                      </object>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="expand">True</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+                <child>
                   <object class="GtkFrame" id="frame25">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
@@ -1799,7 +1845,7 @@ für Hobbybrauer kann man von einem Wert von 65 bis 75% ausgehen.</property>
                               <object class="GtkLabel" id="label54">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="label" translatable="yes">14 EBC</property>
+                                <property name="label" translatable="yes">XXX EBC</property>
                               </object>
                               <packing>
                                 <property name="expand">True</property>
@@ -1811,7 +1857,7 @@ für Hobbybrauer kann man von einem Wert von 65 bis 75% ausgehen.</property>
                               <object class="GtkLabel" id="label61">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="label" translatable="yes">&lt;i&gt;bernstein&lt;/i&gt;</property>
+                                <property name="label" translatable="yes">&lt;i&gt;XXX&lt;/i&gt;</property>
                                 <property name="use_markup">True</property>
                               </object>
                               <packing>
@@ -1836,7 +1882,7 @@ für Hobbybrauer kann man von einem Wert von 65 bis 75% ausgehen.</property>
                   <packing>
                     <property name="expand">True</property>
                     <property name="fill">True</property>
-                    <property name="position">1</property>
+                    <property name="position">2</property>
                   </packing>
                 </child>
                 <child>
@@ -1858,7 +1904,7 @@ für Hobbybrauer kann man von einem Wert von 65 bis 75% ausgehen.</property>
                               <object class="GtkLabel" id="label56">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="label" translatable="yes">20 IBU</property>
+                                <property name="label" translatable="yes">XXX IBU</property>
                               </object>
                               <packing>
                                 <property name="expand">True</property>
@@ -1870,7 +1916,7 @@ für Hobbybrauer kann man von einem Wert von 65 bis 75% ausgehen.</property>
                               <object class="GtkLabel" id="label63">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="label" translatable="yes">1,54 IBU pro % Stammwürze</property>
+                                <property name="label" translatable="yes">X,XX IBU pro % Stammwürze</property>
                               </object>
                               <packing>
                                 <property name="expand">True</property>
@@ -1882,7 +1928,7 @@ für Hobbybrauer kann man von einem Wert von 65 bis 75% ausgehen.</property>
                               <object class="GtkLabel" id="label64">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="label" translatable="yes">&lt;i&gt;ausgewogen&lt;/i&gt;</property>
+                                <property name="label" translatable="yes">&lt;i&gt;XXX&lt;/i&gt;</property>
                                 <property name="use_markup">True</property>
                               </object>
                               <packing>
@@ -1907,7 +1953,7 @@ für Hobbybrauer kann man von einem Wert von 65 bis 75% ausgehen.</property>
                   <packing>
                     <property name="expand">True</property>
                     <property name="fill">True</property>
-                    <property name="position">2</property>
+                    <property name="position">3</property>
                   </packing>
                 </child>
                 <child>
@@ -1925,7 +1971,7 @@ für Hobbybrauer kann man von einem Wert von 65 bis 75% ausgehen.</property>
                           <object class="GtkLabel" id="label58">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="label" translatable="yes">4,9 %vol</property>
+                            <property name="label" translatable="yes">X,X %vol</property>
                           </object>
                         </child>
                       </object>
@@ -1942,7 +1988,7 @@ für Hobbybrauer kann man von einem Wert von 65 bis 75% ausgehen.</property>
                   <packing>
                     <property name="expand">True</property>
                     <property name="fill">True</property>
-                    <property name="position">3</property>
+                    <property name="position">4</property>
                   </packing>
                 </child>
                 <child>
@@ -1960,7 +2006,7 @@ für Hobbybrauer kann man von einem Wert von 65 bis 75% ausgehen.</property>
                           <object class="GtkLabel" id="label60">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="label" translatable="yes">5,1 g/l</property>
+                            <property name="label" translatable="yes">X,X g/l</property>
                           </object>
                         </child>
                       </object>
@@ -1977,7 +2023,7 @@ für Hobbybrauer kann man von einem Wert von 65 bis 75% ausgehen.</property>
                   <packing>
                     <property name="expand">True</property>
                     <property name="fill">True</property>
-                    <property name="position">4</property>
+                    <property name="position">5</property>
                   </packing>
                 </child>
                 <child>
@@ -1995,7 +2041,7 @@ für Hobbybrauer kann man von einem Wert von 65 bis 75% ausgehen.</property>
                           <object class="GtkLabel" id="label50">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="label" translatable="yes">Export</property>
+                            <property name="label" translatable="yes">XXX</property>
                           </object>
                         </child>
                       </object>
@@ -2012,7 +2058,7 @@ für Hobbybrauer kann man von einem Wert von 65 bis 75% ausgehen.</property>
                   <packing>
                     <property name="expand">True</property>
                     <property name="fill">True</property>
-                    <property name="position">5</property>
+                    <property name="position">6</property>
                   </packing>
                 </child>
               </object>
