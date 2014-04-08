@@ -409,12 +409,13 @@ für Hobbybrauer kann man von einem Wert von 65 bis 75% ausgehen.</property>
                 <property name="can_focus">False</property>
                 <child>
                   <object class="GtkImage" id="image2">
+                    <property name="width_request">300</property>
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="stock">gtk-missing-image</property>
                   </object>
                   <packing>
-                    <property name="expand">True</property>
+                    <property name="expand">False</property>
                     <property name="fill">True</property>
                     <property name="position">0</property>
                   </packing>
@@ -1713,7 +1714,7 @@ für Hobbybrauer kann man von einem Wert von 65 bis 75% ausgehen.</property>
                 <property name="stock">gtk-missing-image</property>
               </object>
               <packing>
-                <property name="expand">True</property>
+                <property name="expand">False</property>
                 <property name="fill">True</property>
                 <property name="position">0</property>
               </packing>
@@ -1778,6 +1779,7 @@ für Hobbybrauer kann man von einem Wert von 65 bis 75% ausgehen.</property>
                   <packing>
                     <property name="expand">False</property>
                     <property name="fill">True</property>
+                    <property name="padding">10</property>
                     <property name="position">0</property>
                   </packing>
                 </child>
@@ -1824,6 +1826,7 @@ für Hobbybrauer kann man von einem Wert von 65 bis 75% ausgehen.</property>
                   <packing>
                     <property name="expand">False</property>
                     <property name="fill">True</property>
+                    <property name="padding">10</property>
                     <property name="position">1</property>
                   </packing>
                 </child>
@@ -1883,6 +1886,7 @@ für Hobbybrauer kann man von einem Wert von 65 bis 75% ausgehen.</property>
                   <packing>
                     <property name="expand">False</property>
                     <property name="fill">True</property>
+                    <property name="padding">10</property>
                     <property name="position">2</property>
                   </packing>
                 </child>
@@ -1954,6 +1958,7 @@ für Hobbybrauer kann man von einem Wert von 65 bis 75% ausgehen.</property>
                   <packing>
                     <property name="expand">False</property>
                     <property name="fill">True</property>
+                    <property name="padding">10</property>
                     <property name="position">3</property>
                   </packing>
                 </child>
@@ -1989,6 +1994,7 @@ für Hobbybrauer kann man von einem Wert von 65 bis 75% ausgehen.</property>
                   <packing>
                     <property name="expand">False</property>
                     <property name="fill">True</property>
+                    <property name="padding">10</property>
                     <property name="position">4</property>
                   </packing>
                 </child>
@@ -2024,54 +2030,20 @@ für Hobbybrauer kann man von einem Wert von 65 bis 75% ausgehen.</property>
                   <packing>
                     <property name="expand">False</property>
                     <property name="fill">True</property>
+                    <property name="padding">10</property>
                     <property name="position">5</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkFrame" id="frame23">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="label_xalign">0</property>
-                    <property name="shadow_type">none</property>
-                    <child>
-                      <object class="GtkAlignment" id="alignment23">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="left_padding">12</property>
-                        <child>
-                          <object class="GtkLabel" id="label50">
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="label" translatable="yes">XXX</property>
-                          </object>
-                        </child>
-                      </object>
-                    </child>
-                    <child type="label">
-                      <object class="GtkLabel" id="label49">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">&lt;b&gt;Biertyp&lt;/b&gt;</property>
-                        <property name="use_markup">True</property>
-                      </object>
-                    </child>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">6</property>
                   </packing>
                 </child>
               </object>
               <packing>
-                <property name="expand">True</property>
+                <property name="expand">False</property>
                 <property name="fill">True</property>
                 <property name="position">1</property>
               </packing>
             </child>
           </object>
           <packing>
-            <property name="expand">True</property>
+            <property name="expand">False</property>
             <property name="fill">True</property>
             <property name="position">0</property>
           </packing>

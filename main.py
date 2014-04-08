@@ -284,15 +284,68 @@ class Biersimulator (object):
 		self.obj("entry14").set_text("%d" % self.rezept['lagern']['dauer'])
 	def get_fields(self):
 		# Schroten & Maischen:
-		self.rezept['maischen']['hg'] = float(self.obj("entry2").get_text())/self.ausschlagmenge
-		self.rezept['maischen']['ein'] = int(self.obj("entry3").get_text())
-		self.rezept['maischen']['ab'] = int(self.obj("entry10").get_text())
+		try:
+			self.rezept['maischen']['hg'] = float(self.obj("entry2").get_text())/self.ausschlagmenge
+		except ValueError:
+			self.show_msg("Ungültige Eingabe!", "Der Wert für den Hauptguss darf nur Zahlen enthalten.", gtk.MESSAGE_WARNING)
+			return False
+		if self.rezept['maischen']['hg'] < 0:
+			self.show_msg("Ungültige Eingabe!", "Der Wert für den Hauptguss muss positiv sein.", gtk.MESSAGE_WARNING)
+			return False
+		##
+		try:
+			self.rezept['maischen']['ein'] = int(self.obj("entry3").get_text())
+		except ValueError:
+			self.show_msg("Ungültige Eingabe!", "Der Wert für die Einmaischtemperatur darf nur ganze Zahlen enthalten.", gtk.MESSAGE_WARNING)
+			return False
+		if self.rezept['maischen']['ein'] < 0 or self.rezept['maischen']['ein'] > 100:
+			self.show_msg("Ungültige Eingabe!", "Der Wert für die Einmaischtemperatur muss zwischen 0 und 100 liegen.", gtk.MESSAGE_WARNING)
+			return False
+		##
+		try:
+			self.rezept['maischen']['ab'] = int(self.obj("entry10").get_text())
+		except ValueError:
+			self.show_msg("Ungültige Eingabe!", "Der Wert für die Abmaischtemperatur darf nur ganze Zahlen enthalten.", gtk.MESSAGE_WARNING)
+			return False
+		if self.rezept['maischen']['ab'] < 0 or self.rezept['maischen']['ab'] > 100:
+			self.show_msg("Ungültige Eingabe!", "Der Wert für die Abmaischtemperatur muss zwischen 0 und 100 liegen.", gtk.MESSAGE_WARNING)
+			return False
 		# Läutern:
-		self.rezept['laeutern']['ruhe'] = int(self.obj("entry4").get_text())
-		self.rezept['laeutern']['ng'] = float(self.obj("entry5").get_text())/self.ausschlagmenge
-		self.rezept['laeutern']['ng_t'] = int(self.obj("entry6").get_text())
+		try:
+			self.rezept['laeutern']['ruhe'] = int(self.obj("entry4").get_text())
+		except ValueError:
+			self.show_msg("Ungültige Eingabe!", "Der Wert für die Läuterruhe darf nur ganze Zahlen enthalten.", gtk.MESSAGE_WARNING)
+			return False
+		if self.rezept['laeutern']['ruhe'] < 0:
+			self.show_msg("Ungültige Eingabe!", "Der Wert für die Läuterruhe muss positiv sein.", gtk.MESSAGE_WARNING)
+			return False
+		##
+		try:
+			self.rezept['laeutern']['ng'] = float(self.obj("entry5").get_text())/self.ausschlagmenge
+		except ValueError:
+			self.show_msg("Ungültige Eingabe!", "Der Wert für den Nachguss darf nur Zahlen enthalten.", gtk.MESSAGE_WARNING)
+			return False
+		if self.rezept['laeutern']['ng'] < 0:
+			self.show_msg("Ungültige Eingabe!", "Der Wert für den Nachguss muss positiv sein.", gtk.MESSAGE_WARNING)
+			return False
+		##
+		try:
+			self.rezept['laeutern']['ng_t'] = int(self.obj("entry6").get_text())
+		except ValueError:
+			self.show_msg("Ungültige Eingabe!", "Der Wert für die Nachgusstemperatur darf nur ganze Zahlen enthalten.", gtk.MESSAGE_WARNING)
+			return False
+		if self.rezept['laeutern']['ng_t'] < 0 or self.rezept['laeutern']['ng_t'] > 100:
+			self.show_msg("Ungültige Eingabe!", "Der Wert für die Nachgusstemperatur muss zwischen 0 und 100 liegen.", gtk.MESSAGE_WARNING)
+			return False
 		# Kochen:
-		self.rezept['kochen']['dauer'] = int(self.obj("entry7").get_text())
+		try:
+			self.rezept['kochen']['dauer'] = int(self.obj("entry7").get_text())
+		except ValueError:
+			self.show_msg("Ungültige Eingabe!", "Der Wert für die Kochdauer darf nur ganze Zahlen enthalten.", gtk.MESSAGE_WARNING)
+			return False
+		if self.rezept['kochen']['dauer'] < 0:
+			self.show_msg("Ungültige Eingabe!", "Der Wert für die Kochdauer muss positiv sein.", gtk.MESSAGE_WARNING)
+			return False
 		# Gären:
 		i = self.obj("combobox2").get_active()
 		if i < len(self.hefe_ug):
@@ -301,12 +354,51 @@ class Biersimulator (object):
 		else:
 			# OG
 			self.rezept['gaeren']['hefe'] = (1, self.hefe_og[i-len(self.hefe_ug)][0])
-		self.rezept['gaeren']['evg'] = int(self.obj("entry11").get_text())
-		self.rezept['gaeren']['temperatur'] = int(self.obj("entry9").get_text())
-		self.rezept['gaeren']['druck'] = float(self.obj("entry12").get_text())
+		##
+		try:
+			self.rezept['gaeren']['evg'] = int(self.obj("entry11").get_text())
+		except ValueError:
+			self.show_msg("Ungültige Eingabe!", "Der Wert für den Endvergärungsgrad darf nur ganze Zahlen enthalten.", gtk.MESSAGE_WARNING)
+			return False
+		if self.rezept['gaeren']['evg'] < 1 or self.rezept['gaeren']['evg'] > 100:
+			self.show_msg("Ungültige Eingabe!", "Der Wert für den Endvergärungsgrad muss zwischen 1 und 100 liegen.", gtk.MESSAGE_WARNING)
+			return False
+		##
+		try:
+			self.rezept['gaeren']['temperatur'] = int(self.obj("entry9").get_text())
+		except ValueError:
+			self.show_msg("Ungültige Eingabe!", "Der Wert für die Gärtemperatur darf nur ganze Zahlen enthalten.", gtk.MESSAGE_WARNING)
+			return False
+		if self.rezept['gaeren']['temperatur'] < 1 or self.rezept['gaeren']['temperatur'] > 100:
+			self.show_msg("Ungültige Eingabe!", "Der Wert für die Gärtemperatur muss zwischen 1 und 100 liegen.", gtk.MESSAGE_WARNING)
+			return False
+		##
+		try:
+			self.rezept['gaeren']['druck'] = float(self.obj("entry12").get_text())
+		except ValueError:
+			self.show_msg("Ungültige Eingabe!", "Der Wert für den Spundungsdruck darf nur Zahlen enthalten.", gtk.MESSAGE_WARNING)
+			return False
+		if self.rezept['gaeren']['druck'] < 0:
+			self.show_msg("Ungültige Eingabe!", "Der Wert für den Spundungsdruck muss positiv sein.", gtk.MESSAGE_WARNING)
+			return False
 		# Lagern:
-		self.rezept['lagern']['temperatur'] = int(self.obj("entry13").get_text())
-		self.rezept['lagern']['dauer'] = int(self.obj("entry14").get_text())
+		try:
+			self.rezept['lagern']['temperatur'] = int(self.obj("entry13").get_text())
+		except ValueError:
+			self.show_msg("Ungültige Eingabe!", "Der Wert für die Lagertemperatur darf nur ganze Zahlen enthalten.", gtk.MESSAGE_WARNING)
+			return False
+		if self.rezept['lagern']['temperatur'] < 0 or self.rezept['lagern']['temperatur'] > 100:
+			self.show_msg("Ungültige Eingabe!", "Der Wert für die Lagertemperatur muss zwischen 0 und 100 liegen.", gtk.MESSAGE_WARNING)
+			return False
+		##
+		try:
+			self.rezept['lagern']['dauer'] = int(self.obj("entry14").get_text())
+		except ValueError:
+			self.show_msg("Ungültige Eingabe!", "Der Wert für die Lagerdauer darf nur ganze Zahlen enthalten.", gtk.MESSAGE_WARNING)
+			return False
+		if self.rezept['lagern']['dauer'] < 0:
+			self.show_msg("Ungültige Eingabe!", "Der Wert für die Lagerdauer muss positiv sein.", gtk.MESSAGE_WARNING)
+			return False
 	def set_image2(self, nr):
 		imgs = [
 			"img/schroten.png",
@@ -475,7 +567,8 @@ class Biersimulator (object):
 	# Button Brauprozess abschließen
 	def on_button13_clicked(self, widget, *args):
 		# Daten einlesen:
-		self.get_fields()
+		if not self.get_fields():
+			return
 		# Stammwürze berechnen:
 		### !!! self.rezept['stammwuerze'] setzen !!!
 		if self.rezept['stammwuerze'] < 7:
@@ -541,8 +634,24 @@ class Biersimulator (object):
 		self.obj("label58").set_text("%.2f %%vol" % (alkoholgehalt))
 		# CO2-Gehalt berechnen:
 		co2 = (self.rezept['gaeren']['druck']+1)*(0.0015461*(self.rezept['gaeren']['temperatur']**2) + 0.10711*self.rezept['gaeren']['temperatur'] + 3.1962)
-		self.obj("label60").set_text("%.2f" % co2)
+		self.obj("label60").set_text("%.2f g/l" % co2)
 		# Biertyp berechnen:
+		# Bild setzen:
+		if farbe <= 4:
+			f = "img/farbe/01.png"
+		elif farbe <= 8:
+			f = "img/farbe/02.png"
+		elif farbe <= 12:
+			f = "img/farbe/03.png"
+		elif farbe <= 20:
+			f = "img/farbe/04.png"
+		elif farbe <= 35:
+			f = "img/farbe/05.png"
+		elif farbe <= 60:
+			f = "img/farbe/06.png"
+		else:
+			f = "img/farbe/07.png"
+		self.obj("image3").set_from_file(f)
 		# Ergebnis-Fenster anzeigen:
 		self.obj("window2").hide()
 		self.obj("window3").show()
