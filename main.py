@@ -399,6 +399,7 @@ class Biersimulator (object):
 		if self.rezept['lagern']['dauer'] < 0:
 			self.show_msg("Ungültige Eingabe!", "Der Wert für die Lagerdauer muss positiv sein.", gtk.MESSAGE_WARNING)
 			return False
+		return True
 	def set_image2(self, nr):
 		imgs = [
 			"img/schroten.png",
@@ -409,7 +410,17 @@ class Biersimulator (object):
 			"img/gaeren.png",
 			""
 		]
+		texte = [
+			"""""",
+			"""""",
+			"""""",
+			"""""",
+			"""""",
+			"""""",
+			""""""
+		]
 		self.obj("image2").set_from_file(imgs[nr])
+		self.obj("textbuffer2").set_text(texte[nr])
 	def fill_model_schuettung(self):
 		self.model_schuettung.clear()
 		for item in self.rezept['maischen']['schuettung']:
@@ -643,9 +654,16 @@ class Biersimulator (object):
 		alkoholgehalt = (0.405*(self.rezept['stammwuerze']-restextrakt))/0.795
 		self.obj("label58").set_text("%.2f %%vol" % (alkoholgehalt))
 		# CO2-Gehalt berechnen:
-		co2 = (self.rezept['gaeren']['druck']+1)*(0.0015461*(self.rezept['gaeren']['temperatur']**2) + 0.10711*self.rezept['gaeren']['temperatur'] + 3.1962)
+		co2 = (self.rezept['gaeren']['druck']+1)*(0.0015461*(self.rezept['gaeren']['temperatur']**2) + 0.10711*self.rezept['gaeren']['temperatur'] + 3.1962)/3.
 		self.obj("label60").set_text("%.2f g/l" % co2)
-		# Biertyp berechnen:
+		# Aromen berechnen:
+		aromen = []
+		for item in self.rezept['kochen']['hopfen']:
+			a = self.hopfeninfo_from_name(item[0])[3]
+			for aroma in a:
+				if not aroma in aromen:
+					aromen.append(aroma)
+		self.obj("label49").set_text(", ".join(aromen))
 		# Bild setzen:
 		if farbe <= 4:
 			f = "img/farbe/01.png"
