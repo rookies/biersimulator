@@ -398,7 +398,7 @@ class Biersimulator (object):
 			"img/maischen.png",
 			"img/laeutern.png",
 			"img/kochen.png",
-			"",
+			"img/anstellen.png",
 			"img/gaeren.png",
 			"img/lagern.png"
 		]
