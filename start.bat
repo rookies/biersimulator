@@ -1,1 +1,0 @@
-..\App\python.exe main.py
